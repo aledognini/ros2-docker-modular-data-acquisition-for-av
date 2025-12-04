@@ -1,0 +1,211 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: DebugNode BrakeControlUnit SpeedSensorUnit CarControlUnit NUC SteeringWheelSensor SteeringWheelControlUnit IMU
+VAL_TABLE_ CCU_Status 4 "emergency" 3 "party" 2 "on" 1 "starting" 0 "idle" ;
+VAL_TABLE_ BCU_BrakingAutoMode 3 "NUC" 2 "CAR" 1 "DEBUG" 0 "OFF" ;
+VAL_TABLE_ BCU_BrakingMode 4 "EMERGENCY" 3 "P_vs_V" 2 "DEBUG" 1 "AUTO" 0 "OFF" ;
+VAL_TABLE_ BCU_Error 7 "DNR error" 6 "P vs V calibration end" 5 "Pref error" 4 "CAN Rx mex in nuc error" 3 "CAN Rx mex in car error" 2 "CAN Rx mex in debug error" 1 "CAN Rx enable error" 0 "no error" ;
+VAL_TABLE_ CCU_Error 5 "brake controller" 4 "speed controller" 3 "com with brake control unit" 2 "com with car speed sensor" 1 "com with car controller" 0 "no error" ;
+VAL_TABLE_ TurnignLights 3 "All ON" 2 "Turn Right ON" 1 "Turn Left ON" 0 "All OFF" ;
+VAL_TABLE_ DriveNeutralReverse 3 "Emergency" 2 "Forward" 1 "Reverse" 0 "Neutral" ;
+VAL_TABLE_ SteeringWheelError 4 "Description for the value '0x4'" 3 "CAN mex RX missing" 2 "Battery voltage low" 1 "Steering wheel sensor missing" 0 "No errors" ;
+VAL_TABLE_ SteeringWheelStatus 2 "Control ON" 1 "Control Starting" 0 "No control" ;
+
+
+BO_ 529 CarControlGain: 6 NUC
+ SG_ CCU_Gain_kBrake : 24|8@1+ (0.01,0) [0|2.55] ""  CarControlUnit
+ SG_ CCU_Gain_I : 16|8@1+ (0.1,0) [0|25.5] ""  CarControlUnit
+ SG_ CCU_Gain_D : 8|8@1+ (0.1,0) [0|25.5] ""  CarControlUnit
+ SG_ CCU_Gain_P : 0|8@1+ (0.1,0) [0|25.5] ""  CarControlUnit
+ SG_ CCU_Gain_kGas : 32|8@1+ (0.01,0) [0|2.55] ""  CarControlUnit
+
+BO_ 275 BrakeDebugReplace: 8 BrakeControlUnit
+ SG_ BDC_PrefDebug : 16|8@1+ (1,0) [0|100] "bar" Vector__XXX
+ SG_ BCU_Pref : 24|8@1+ (1,0) [0|100] "bar" Vector__XXX
+ SG_ BCU_DebugEnable : 8|1@1+ (1,0) [0|1] "boolean"  DebugNode
+ SG_ BCU_counterMode : 32|16@1+ (1,0) [0|65535] "s"  DebugNode
+ SG_ BCU_red_flag : 9|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_BrakingAutoMode : 0|4@1+ (1,0) [0|15] "-"  DebugNode
+ SG_ BCU_BrakingMode : 4|4@1+ (1,0) [0|15] "-"  DebugNode
+
+BO_ 258 DebugBrakeControlUnit: 8 DebugNode
+ SG_ Debug_BCU_MOTref : 56|4@1+ (1,0) [0|10] "%"  BrakeControlUnit
+ SG_ Debug_BCU_TCFref : 52|4@1+ (1,0) [0|10] "%"  BrakeControlUnit
+ SG_ Debug_BCU_TCRref : 44|4@1+ (1,0) [0|10] "%"  BrakeControlUnit
+ SG_ Debug_BCU_SHFref : 48|4@1+ (1,0) [0|10] "%"  BrakeControlUnit
+ SG_ Debug_BCU_SHRref : 40|4@1+ (1,0) [0|10] "%"  BrakeControlUnit
+ SG_ Debug_BCU_Pref : 16|8@1+ (1,0) [0|100] "bar"  BrakeControlUnit
+ SG_ Debug_BCU_BrakingMode : 4|4@1+ (1,0) [0|4] ""  BrakeControlUnit
+ SG_ Debug_BCU_DebugEnable : 0|1@1+ (1,0) [0|1] "boolean"  BrakeControlUnit
+
+BO_ 274 BrakeRawData2: 8 BrakeControlUnit
+ SG_ BCU_RawData_TCRcurr : 48|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_TCFcurr : 32|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_SHRcurr : 16|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_SHFcurr : 0|16@1+ (1,0) [0|4096] "bit"  DebugNode
+
+BO_ 273 BrakeRawData1: 8 BrakeControlUnit
+ SG_ BCU_RawData_Vbat : 32|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_PSR : 16|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_PSF : 0|16@1+ (1,0) [0|4096] "bit"  DebugNode
+ SG_ BCU_RawData_MOTcurr : 48|16@1+ (1,0) [0|4096] "bit"  DebugNode
+
+BO_ 518 CarSpeedSensorDB: 8 Vector__XXX
+ SG_ SpeedSensor_db_PulsesRR : 48|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ SpeedSensor_db_PulsesRL : 32|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ SpeedSensor_db_PulsesFR : 16|16@1+ (1,0) [0|65535] "" Vector__XXX
+ SG_ SpeedSensor_db_PulsesFL : 0|16@1+ (1,0) [0|65535] "" Vector__XXX
+
+BO_ 272 BrakeControlStatus: 8 BrakeControlUnit
+ SG_ BCU_TCRearCurr : 43|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_TCFrontCurr : 42|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_SHRearCurr : 41|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_MotorCurr : 0|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_SHFrontCurr : 40|1@1+ (1,0) [0|1] "-"  DebugNode
+ SG_ BCU_Error : 4|4@1+ (1,0) [0|15] "-"  DebugNode    // MODIFIED: Range changed from [0|?] to [0|15]
+ SG_ BCU_TCRearPWM : 60|4@1+ (1,0) [0|15] "%"  DebugNode
+ SG_ BCU_TCFrontPWM : 56|4@1+ (1,0) [0|15] "%"  DebugNode
+ SG_ BCU_SpeedEnable : 2|1@1+ (1,0) [0|0] "boolean"  DebugNode   // (Assuming this remains as only 0 is valid)
+ SG_ BCU_SHRearPWM : 52|4@1+ (1,0) [0|15] "%"  DebugNode
+ SG_ BCU_SHFrontPWM : 48|4@1+ (1,0) [0|15] "%"  DebugNode
+ SG_ BCU_Ref_BrakePressure_NUC : 24|8@1+ (1,0) [0|100] "bar"  DebugNode
+ SG_ BCU_Ref_BrakePressure_CCU : 32|8@1+ (1,0) [0|100] "bar"  DebugNode
+ SG_ BCU_MotorPWM : 44|4@1+ (1,0) [0|15] "%"  DebugNode
+
+BO_ 528 CarControlUnitStatus: 8 CarControlUnit
+ SG_ CCU_Status : 44|4@1- (1,0) [0|4] "" Vector__XXX     // MODIFIED: Range changed from [0|0] to [0|4]
+ SG_ CCU_Throttle : 24|8@1+ (1,0) [0|100] "%" Vector__XXX
+ SG_ CCU_CarSpeed : 16|8@1+ (0.1,0) [0|25.5] "km/h" Vector__XXX
+ SG_ CCU_TurningLightR : 8|1@1+ (1,0) [0|1] "" Vector__XXX     // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_TurningLightL : 9|1@1+ (1,0) [0|1] "" Vector__XXX     // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Lights : 10|1@1+ (1,0) [0|1] "" Vector__XXX           // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Key : 12|1@1+ (1,0) [0|1] "" Vector__XXX              // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Horn : 13|1@1+ (1,0) [0|1] "" Vector__XXX             // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Doors : 11|1@1+ (1,0) [0|1] "" Vector__XXX             // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_DriveNeutralReverse : 14|2@1+ (1,0) [0|3] "" Vector__XXX // MODIFIED: Range changed from [0|0] to [0|3]
+ SG_ CCU_ThrottleEnable : 6|1@1+ (1,0) [0|1] "" Vector__XXX      // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_SpeedEnable : 4|1@1+ (1,0) [0|1] "" Vector__XXX         // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Ref_BrakePressure : 32|8@1+ (1,0) [0|100] "bar"  BrakeControlUnit
+ SG_ CCU_PartyEnable : 0|1@1+ (1,0) [0|1] "" Vector__XXX         // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ CCU_Error : 40|4@1- (1,0) [0|15] "" Vector__XXX            // MODIFIED: Range changed from [0|0] to [0|15]
+ SG_ CCU_BrakeEnable : 5|1@1+ (1,0) [0|0] ""  BrakeControlUnit    // (Assuming this remains [0|0] if only “no brake” is valid)
+
+ SG_ CCU_Cruise_P : 48|8@1+ (1,0) [0|255] "" Vector__XXX	// MODIFIED: Jai
+ SG_ CCU_Cruise_I : 56|8@1+ (1,0) [0|255] "" Vector__XXX	// MODIFIED: Jai
+
+
+BO_ 517 CarSpeedsSensor: 8 SpeedSensorUnit
+ SG_ WheelSpeedRR : 52|12@1+ (0.05,0) [0|204.75] "km/h"  NUC
+ SG_ WheelSpeedRL : 40|12@1+ (0.05,0) [0|204.75] "km/h"  NUC
+ SG_ WheelSpeedFR : 28|12@1+ (0.05,0) [0|204.75] "km/h"  NUC
+ SG_ WheelSpeedFL : 16|12@1+ (0.05,0) [0|204.75] "km/h"  NUC
+ SG_ CarSpeed : 0|12@1+ (0.05,0) [0|204.75] "km/h"  CarControlUnit,NUC
+
+BO_ 773 SteeringWheelSensor: 6 SteeringWheelSensor
+ SG_ SS_Unknown : 40|8@1- (1,0) [0|0] ""  NUC
+ SG_ SS_SteeringSpeed : 23|16@0- (1,0) [0|0] "deg/s"  NUC
+ SG_ SS_Counter : 32|8@1- (1,0) [0|0] ""  NUC
+ SG_ SS_SteeringAngle : 7|16@0- (0.13,0) [-450|450] "deg"  SteeringWheelControlUnit,NUC
+
+BO_ 784 SteerControlUnitStatus: 8 SteeringWheelControlUnit
+ SG_ SCU_SteeringWheelAngle : 0|16@1- (0.0142857142857143,0) [-450|450] "deg"  NUC
+ SG_ SCU_SteeringWheelStatus : 40|8@1+ (1,0) [0|2] ""  NUC         // MODIFIED: Range changed from [0|0] to [0|2]
+ SG_ SCU_SteeringWheelMotorPWM : 16|8@1+ (1,-100) [-100|100] "%"  NUC
+ SG_ SCU_SteeringWheelMotorCurrent : 24|8@1- (1,0) [-128|127] "A"  NUC
+ SG_ SCU_SteeringWheelError : 48|8@1+ (1,0) [0|0] ""  NUC            // (No VAL_TABLE provided—if error states exist, adjust accordingly)
+ SG_ SCU_BatteryVoltage : 32|8@1+ (0.1,0) [0|25.5] "V"  NUC
+
+BO_ 257 CarControlCommand: 8 NUC
+ SG_ Ref_PartyMode : 0|1@1+ (1,0) [0|1] ""  CarControlUnit          // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_Lights : 58|1@1+ (1,0) [0|1] ""  CarControlUnit             // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_Doors : 59|1@1+ (1,0) [0|1] ""  CarControlUnit             // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_Key : 60|1@1+ (1,0) [0|1] ""  CarControlUnit               // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_Horn : 61|1@1+ (1,0) [0|1] ""  CarControlUnit              // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_Ax : 32|8@1- (0.1,0) [-12.8|12.7] "m/s^2"  CarControlUnit
+ SG_ Ref_TurningLightR : 56|1@1+ (1,0) [0|1] ""  CarControlUnit           // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_ThrottleEnable : 6|1@1+ (1,0) [0|1] ""  CarControlUnit          // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_BrakesEnable : 5|1@1+ (1,0) [0|1] ""  CarControlUnit,BrakeControlUnit  // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_BrakePressure : 48|8@1+ (1,0) [0|100] "bar"  BrakeControlUnit
+ SG_ Ref_Throttle : 40|8@1+ (1,0) [0|100] "%"  CarControlUnit
+ SG_ Ref_CarSpeed : 24|8@1+ (0.1,0) [0|25.5] "km/h"  CarControlUnit
+ SG_ Ref_TurningLightL : 57|1@1+ (1,0) [0|1] ""  CarControlUnit           // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_SpeedControlEnable : 4|1@1+ (1,0) [0|1] ""  CarControlUnit          // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_DriveNeutralReverse : 62|2@1+ (1,0) [0|3] ""  CarControlUnit           // MODIFIED: Range changed from [0|0] to [0|3]
+ SG_ Ref_SteeringWheelEnable : 7|1@1+ (1,0) [0|1] ""  SteeringWheelControlUnit // MODIFIED: Range changed from [0|0] to [0|1]
+ SG_ Ref_SteeringWheelAngle : 8|16@1- (0.0142857142857143,0) [-450|450] "deg"  SteeringWheelControlUnit
+
+BO_ 372 IMU_0x174: 8 IMU
+ SG_ YawRate : 0|16@1+ (0.005,-163.84) [-163.84|163.83] "deg/s" IMU
+ SG_ Reserved1 : 16|16@1+ (1,0) [0|65535] "" IMU
+ SG_ AccY : 32|16@1+ (0.000127465,-4.1768) [-4.1768|4.1765] "g" IMU
+ SG_ Reserved2 : 48|8@1+ (1,0) [0|255] "" IMU
+ SG_ Unused1 : 56|8@1+ (1,0) [0|255] "" IMU
+
+BO_ 376 IMU_0x178: 8 IMU
+ SG_ RollRate : 0|16@1+ (0.005,-163.84) [-163.84|163.83] "deg/s" IMU
+ SG_ Reserved3 : 16|16@1+ (1,0) [0|65535] "" IMU
+ SG_ AccX : 32|16@1+ (0.000127465,-4.1768) [-4.1768|4.1765] "g" IMU
+ SG_ Reserved4 : 48|8@1+ (1,0) [0|255] "" IMU
+ SG_ Unused2 : 56|8@1+ (1,0) [0|255] "" IMU
+
+BO_ 380 IMU_0x17C: 8 IMU
+ SG_ Reserved5 : 0|16@1+ (1,0) [0|65535] "" IMU
+ SG_ Reserved6 : 16|16@1+ (1,0) [0|65535] "" IMU
+ SG_ AccZ : 32|16@1+ (0.000127465,-4.1768) [-4.1768|4.1765] "g" IMU
+ SG_ Reserved7 : 48|8@1+ (1,0) [0|255] "" IMU
+ SG_ Unused3 : 56|8@1+ (1,0) [0|255] "" IMU
+
+
+CM_ SG_ 529 CCU_Gain_I "multiplicator for integral gain. 1 for default";
+CM_ SG_ 529 CCU_Gain_D "multiplicator for derivative gain. 1 for default";
+CM_ SG_ 529 CCU_Gain_P "multiplicator for proportional gain. 1 for default";
+CM_ BO_ 258 "Message used to debug the BCU";
+CM_ BO_ 274 "Raw data from BCU";
+CM_ BO_ 273 "Raw data from BCU";
+CM_ BO_ 272 "Status of the BCU";
+CM_ BO_ 784 "Steering Wheel Controller ";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "BusType" "CAN";
+VAL_ 275 BCU_BrakingAutoMode 3 "NUC" 2 "CAR" 1 "DEBUG" 0 "OFF" ;
+VAL_ 275 BCU_BrakingMode 4 "EMERGENCY" 3 "P_vs_V" 2 "DEBUG" 1 "AUTO" 0 "OFF" ;
+VAL_ 258 Debug_BCU_BrakingMode 4 "EMERGENCY" 3 "P_vs_V" 2 "DEBUG" 1 "AUTO" 0 "OFF" ;
+VAL_ 272 BCU_Error 7 "DNR error" 6 "P vs V calibration end" 5 "Pref error" 4 "CAN Rx mex in nuc error" 3 "CAN Rx mex in car error" 2 "CAN Rx mex in debug error" 1 "CAN Rx enable error" 0 "no error" ;
+VAL_ 528 CCU_Error 5 "brake controller" 4 "speed controller" 3 "com with brake control unit" 2 "com with car speed sensor" 1 "com with car controller" 0 "no error" ;
+VAL_ 528 CCU_Status 4 "emergency" 3 "party" 2 "on" 1 "starting" 0 "idle" ;
+VAL_ 528 CCU_DriveNeutralReverse 3 "Emergency" 2 "Forward" 1 "Reverse" 0 "Neutral" ;
+VAL_ 784 SCU_SteeringWheelStatus 2 "Control ON" 1 "Control Starting" 0 "No control" ;
+VAL_ 784 SCU_SteeringWheelError 4 "Description for the value '0x4'" 3 "CAN mex RX missing" 2 "Battery voltage low" 1 "Steering wheel sensor missing" 0 "No errors" ;
+VAL_ 257 Ref_DriveNeutralReverse 3 "Emergency" 2 "Forward" 1 "Reverse" 0 "Neutral" ;

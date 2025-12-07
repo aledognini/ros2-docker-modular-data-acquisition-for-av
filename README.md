@@ -74,8 +74,8 @@ To configure and start the CAN-BUS container:
         `ros2 launch pedestrian_visualizer visualizer.launch.py`
       * *To check how the marker changes color:*
         ```bash
-        [cite_start]ros2 topic pub /pedestrian_warning std_msgs/msg/Bool "data: true" [cite: 7]
-        [cite_start]ros2 topic pub /pedestrian_warning std_msgs/msg/Bool "data: false" [cite: 7]
+        ros2 topic pub /pedestrian_warning std_msgs/msg/Bool "data: true"
+        ros2 topic pub /pedestrian_warning std_msgs/msg/Bool "data: false"
         ```
 
 -----
@@ -94,7 +94,7 @@ To start the ZED Camera container:
 
       * **Case 1: Only one ZED camera:**
         ```bash
-        [cite_start]ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zedx [cite: 8]
+        ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zedx
         ```
       * **Case 2: Two ZED cameras:** (Launch commands in separate terminals)
         ```bash

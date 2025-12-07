@@ -22,7 +22,7 @@ sudo ip link set lo multicast on
 
 -----
 
-## 1\) 🛰️ DUAL-ANTENNA GNSS
+## 1\) DUAL-ANTENNA GNSS
 
 To start the GNSS container:
 
@@ -50,7 +50,7 @@ To start the GNSS container:
 
 -----
 
-## 2\) 🚌 CAN-BUS
+## 2\) CAN-BUS
 
 To configure and start the CAN-BUS container:
 
@@ -80,7 +80,7 @@ To configure and start the CAN-BUS container:
 
 -----
 
-## 3\) 📸 ZED CAMERA
+## 3\) ZED CAMERA
 
 To start the ZED Camera container:
 
@@ -109,7 +109,7 @@ To start the ZED Camera container:
 
 -----
 
-## 4\) 🧭 IMU
+## 4\) IMU
 
 To start the IMU container:
 
@@ -125,7 +125,7 @@ To start the IMU container:
 
 -----
 
-## 5\) 💡 LiDAR (Ouster)
+## 5\) LiDAR (Ouster)
 
 To start the LiDAR container:
 
@@ -142,7 +142,7 @@ To start the LiDAR container:
 
 -----
 
-## 6\) 🎥 HOW TO RECORD A BAG
+## 6\) HOW TO RECORD A BAG
 
 To record data into a ROS Bag file:
 

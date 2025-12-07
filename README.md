@@ -7,6 +7,11 @@ Modular data acquisition architecture for autonomous vehicle (AV) research activ
 
 This guide provides the necessary steps to configure and start the individual system containers.
 
+* The file "build.sh" is used to build the Docker image.
+* The file "start.sh" is used to start the Docker container.
+* The file "connect.sh" is used to connect to a Docker container that is already running.
+* The file "record.sh" is used to record a ROS2 bag.
+
 ## 0\) Initial Configuration (CycloneDDS)
 
 **⚠️ Before proceeding, you must set the correct configurations for CycloneDDS.**

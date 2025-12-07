@@ -9,9 +9,9 @@ This guide provides the necessary steps to configure and start the individual sy
 
 ## 0\) Initial Configuration (CycloneDDS)
 
-[cite_start]**⚠️ Before proceeding, you must set the correct configurations for CycloneDDS[cite: 1].**
+**⚠️ Before proceeding, you must set the correct configurations for CycloneDDS.**
 
-[cite_start]Execute the following commands in the host terminal[cite: 2]:
+Execute the following commands in the host terminal:
 
 ```bash
 sudo sysctl -w net.core.rmem_max=2147483647
@@ -26,19 +26,19 @@ sudo ip link set lo multicast on
 
 To start the GNSS container:
 
-1.  [cite_start]Enter the repository: `/docker-gnss` [cite: 1]
+1.  Enter the repository: `/docker-gnss`
 
-2.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+2.  Launch the container: `./start.sh`
 
 3.  Inside the `gnss_ros2_container`, launch these commands in separate terminals:
 
-      * [cite_start]**Terminal 1:** `cd /root/scripts && python3 rtk_write.py` [cite: 1]
-      * [cite_start]**Terminal 2:** `ros2 launch gnss_bringup antenna_front.launch.py` [cite: 1]
-      * [cite_start]**Terminal 3:** `ros2 launch gnss_bringup antenna_rear.launch.py` [cite: 1]
+      * **Terminal 1:** `cd /root/scripts && python3 rtk_write.py`
+      * **Terminal 2:** `ros2 launch gnss_bringup antenna_front.launch.py`
+      * **Terminal 3:** `ros2 launch gnss_bringup antenna_rear.launch.py`
 
-4.  [cite_start]To check the correct functioning, watch the **topic list**[cite: 1].
+4.  To check the correct functioning, watch the **topic list**.
 
-5.  [cite_start]To publish GPS position on the MQTT broker and get the pedestrian warning signal[cite: 3]:
+5.  To publish GPS position on the MQTT broker and get the pedestrian warning signal:
 
     ```bash
     # Publishes the GPS position on the MQTT broker
@@ -55,23 +55,23 @@ To start the GNSS container:
 To configure and start the CAN-BUS container:
 
 1.  **CAN Interface Configuration (Host):**
-      * [cite_start]*NB: Use `ip a` to check if `can2` is correct[cite: 4].*
-      * [cite_start]Command 1: `sudo ip link set can2 type can bitrate 500000` [cite: 4]
-      * [cite_start]Command 2: `sudo ip link set up can2` [cite: 4]
-2.  [cite_start]Enter the repository: `/docker-can` [cite: 1]
-3.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+      * *NB: Use `ip a` to check if `can2` is correct.*
+      * Command 1: `sudo ip link set can2 type can bitrate 500000` 
+      * [Command 2: `sudo ip link set up can2` 
+2.  Enter the repository: `/docker-can`
+3.  Launch the container: `./start.sh` 
 4.  Inside the `can_ros2_container`, launch these commands in separate terminals:
-      * [cite_start]*Functioning check command:* `'candump can2'` [cite: 1]
-      * [cite_start]**Terminal 1:** `ros2 run can_decoder decoder_node` [cite: 1]
-      * [cite_start]**Terminal 2:** `ros2 run can_commander commander_node` [cite: 1]
-5.  [cite_start]To check the correct functioning, watch the **topic list**[cite: 1].
-6.  [cite_start]To publish commands to the car, you need to publish on the topics `/cmd/...` (NB: the type of message has to be correct)[cite: 5].
+      * *Functioning check command:* `'candump can2'`
+      * **Terminal 1:** `ros2 run can_decoder decoder_node`
+      * **Terminal 2:** `ros2 run can_commander commander_node`
+5.  To check the correct functioning, watch the **topic list**.
+6.  To publish commands to the car, you need to publish on the topics `/cmd/...` (NB: the type of message has to be correct).
 7.  **Commander Node Tests:**
-      * [cite_start]Test 1: `ros2 run test1_commander test1_command_node` (Controls lights and horn for an initial simple test) [cite: 6]
-      * [cite_start]Test 2: `ros2 run test2_commander test2_command_node` (Controls the motor and brakes for a more complex test on the can) [cite: 6]
+      * Test 1: `ros2 run test1_commander test1_command_node` (Controls lights and horn for an initial simple test)
+      * Test 2: `ros2 run test2_commander test2_command_node` (Controls the motor and brakes for a more complex test on the can)
 8.  **Pedestrian Warning Visualization:**
       * Launch this command to visualize the warning signal for pedestrian detection:
-        [cite_start]`ros2 launch pedestrian_visualizer visualizer.launch.py` [cite: 1]
+        `ros2 launch pedestrian_visualizer visualizer.launch.py`
       * *To check how the marker changes color:*
         ```bash
         [cite_start]ros2 topic pub /pedestrian_warning std_msgs/msg/Bool "data: true" [cite: 7]
@@ -84,11 +84,11 @@ To configure and start the CAN-BUS container:
 
 To start the ZED Camera container:
 
-1.  [cite_start]Enter the repository: `/docker-zed` [cite: 1]
+1.  Enter the repository: `/docker-zed`
 
-2.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+2.  Launch the container: `./start.sh`
 
-3.  [cite_start]Check the connection with the cameras by launching `'ZED_Explorer'` (NB: a reboot is necessary every time the connection with the zed is changed)[cite: 1].
+3.  Check the connection with the cameras by launching `'ZED_Explorer'` (NB: a reboot is necessary every time the connection with the zed is changed).
 
 4.  Inside the `zed_ros2_container`, launch the appropriate command:
 
@@ -105,7 +105,7 @@ To start the ZED Camera container:
         ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zedx camera_name:=zed_rear
         ```
 
-5.  [cite_start]To check the correct functioning, watch the **topic list** and use **rviz2**[cite: 1].
+5.  To check the correct functioning, watch the **topic list** and use **rviz2**.
 
 -----
 
@@ -113,11 +113,11 @@ To start the ZED Camera container:
 
 To start the IMU container:
 
-1.  [cite_start]Enter the repository: `/docker-imu` [cite: 1]
+1.  Enter the repository: `/docker-imu`
 
-2.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+2.  Launch the container: `./start.sh` 
 
-3.  [cite_start]Inside the `imu_ros2_container`[cite: 9], launch the following command:
+3.  Inside the `imu_ros2_container`, launch the following command:
 
     ```bash
     ros2 launch microstrain_inertial_examples cv7_launch.py
@@ -129,8 +129,8 @@ To start the IMU container:
 
 To start the LiDAR container:
 
-1.  [cite_start]Enter the repository: `/docker-ouster` [cite: 1]
-2.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+1.  Enter the repository: `/docker-ouster`
+2.  Launch the container: `./start.sh`
 3.  Inside the `ouster_ros_container`, launch this command:
     ```bash
     ros2 launch ouster_ros sensor.independent.launch.xml \
@@ -138,7 +138,7 @@ To start the LiDAR container:
         azimuth_window_start:=90000 \
         azimuth_window_end:=270000 
     ```
-    (This command will open rviz and will publish all the measurements of the lidar as ROS2 messages) [cite_start][cite: 1].
+    (This command will open rviz and will publish all the measurements of the lidar as ROS2 messages).
 
 -----
 
@@ -146,8 +146,8 @@ To start the LiDAR container:
 
 To record data into a ROS Bag file:
 
-1.  [cite_start]Enter the repository: `/docker-record` [cite: 1]
-2.  [cite_start]Launch the container: `./start.sh` [cite: 1]
+1.  Enter the repository: `/docker-record`
+2.  Launch the container: `./start.sh` 
 3.  **Outside of the container**, and while being in the repository `/docker-record`, run the command:
     ```bash
     ./record.sh

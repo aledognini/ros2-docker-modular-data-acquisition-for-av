@@ -12,6 +12,8 @@ This guide provides the necessary steps to configure and start the individual sy
 * The file "connect.sh" is used to connect to a Docker container that is already running.
 * The file "record.sh" is used to record a ROS2 bag.
 
+All the Docker images used are available at: https://hub.docker.com/repository/docker/aledognini
+
 ## 0\) Initial Configuration (CycloneDDS)
 
 **⚠️ Before proceeding, you must set the correct configurations for CycloneDDS.**

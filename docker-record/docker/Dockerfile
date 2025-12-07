@@ -125,9 +125,6 @@ WORKDIR /root/ROS2_ws
 # Copio il codice sorgente e i dati
 COPY ./ROS2_ws/src ./src
 COPY ./config /root/config
-COPY ./test_tools /root/test_tools
-COPY ./soak_test_logs /root/soak_test_logs
-RUN chmod +x /root/test_tools/*.sh
 
 # Installo le dipendenze dei pacchetti ROS2
 RUN source /opt/ros/humble/setup.bash && \
